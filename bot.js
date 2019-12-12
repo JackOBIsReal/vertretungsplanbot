@@ -16,6 +16,12 @@ client.on('message', msg => {
          msg.channel.send('Einen Moment, lade den Vertretungsplan...');
          setTimeout(parsePlan, 3000, msg);
       }
+      else if(msgContent == 'planold'){
+         delBotMessages(msg, false);
+         getPlan(msg)
+         msg.channel.send('Einen Moment, lade den Vertretungsplan...');
+         setTimeout(parsePlan, 3000, msg, true);
+      }
       else if(msgContent == 'clear'){
          delBotMessages(msg, true);
       }
@@ -83,7 +89,7 @@ function getPlan(msg){
    // msg.channel.send(tmpstring) 
 }
 
-function parsePlan(msg){
+function parsePlan(msg, old = false){
    tmp = tmpstring.split('table')[1].split('\n')
    console.log(tmp.length);
    for(i = 0; i<tmp.length; i++){
@@ -116,13 +122,38 @@ function parsePlan(msg){
          tmp[i] = tmp[i].replace('</b>', '')
          tmp[i] = tmp[i].replace('<b>', '')
          tmp[i] = tmp[i].replace('</font></td></tr>', '')
+
+         // wtf
+         tmp[i] = tmp[i].replace('<tr><td colspan=5><font face=arial color=black size=3>', '')
+         tmp[i] = tmp[i].replace('<br>', '')
+         tmp[i] = tmp[i].replace('<br>', '')
+         tmp[i] = tmp[i].replace('<br><br><hr>', '')
       }
    }
+   global.embeddedOutput = new Discord.RichEmbed()
+	.setColor('#0099ff')
+   .setDescription(`${tmp[0]}`)
+   tmp.forEach(function(value){
+      if (value != tmp[0]){
+         if(value.split(':').length >= 3){
+            embeddedOutput.addField(value.split(':')[1] + "a", value.split(':')[2] + "a")
+         }
+         else{
+            embeddedOutput.addField('Info:', value)
+         }
+      }
+   })
+	embeddedOutput.setTimestamp()
    output = ""
    tmp.forEach(function(value){
       output += value + '\n'
    })
-   msg.channel.send(output);
+   if(old){
+      msg.channel.send(output)
+   }
+   else{
+      msg.channel.send(embeddedOutput);
+   }
 }
 
-client.login('NjU0NTg3NTY0NTcyOTM0MTQ0.XfJKJQ.x-QBg5A5Ji8sru92Vi8C85bbHnI');
+client.login('NjU0NTg3NTY0NTcyOTM0MTQ0.XfKv2g.PTWLF_lZ9OT4fybeoI2t0z0TK_k');
