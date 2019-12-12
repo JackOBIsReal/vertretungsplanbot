@@ -125,4 +125,4 @@ function parsePlan(msg){
    msg.channel.send(output);
 }
 
-client.login('NjU0NTg3NTY0NTcyOTM0MTQ0.XfIfRA.Yn3Rus_PCtTe7LxEq3vErLxayzU');
+client.login('NjU0NTg3NTY0NTcyOTM0MTQ0.XfJKJQ.x-QBg5A5Ji8sru92Vi8C85bbHnI');
