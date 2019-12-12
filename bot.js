@@ -26,7 +26,6 @@ client.on('message', msg => {
    }
 });
 
-<<<<<<< HEAD
 function delBotMessages(msg, print = false){
    if (msg.channel.type == 'text') {
       msg.channel.fetchMessages().then(messages => {
@@ -127,6 +126,3 @@ function parsePlan(msg){
 }
 
 client.login('NjU0NTg3NTY0NTcyOTM0MTQ0.XfIfRA.Yn3Rus_PCtTe7LxEq3vErLxayzU');
-=======
-client.login('NjU0NTg3NTY0NTcyOTM0MTQ0.XfId5g.IyfM407oT5V2bwQ9ViWN0MpWrH0');
->>>>>>> 617626e49e962a69dfcd8eacc03013e9ab210d00
